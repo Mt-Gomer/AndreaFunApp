@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Andrea's Giggle Machine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="title">Andrea's Giggle Machine <span class="subtitle">— turn sound up!</span></h1>
+    <div class="difficulty">
+      <label for="difficulty-slider">Difficulty: <span id="difficulty-value">5</span></label>
+      <input type="range" id="difficulty-slider" min="1" max="10" step="1" value="5">
+      <div class="difficulty-labels"><span>easy</span><span>hard</span></div>
+    </div>
+  </header>
+
+  <main class="board" id="board"></main>
+
+  <script src="sounds_list.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

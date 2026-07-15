@@ -1,0 +1,184 @@
+:root {
+  --card-w: 140px;
+  --card-h: 118px;
+  --gap: 18px;
+  --cols: 5;
+  --rows: 2;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(160deg, #fff7e6, #ffe8f0 60%, #e6f4ff);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 24px;
+  flex: 0 0 auto;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(18px, 3vw, 32px);
+  font-weight: 800;
+  color: #6b3fa0;
+  text-shadow: 1px 2px 0 rgba(255,255,255,0.6);
+  white-space: nowrap;
+}
+
+.subtitle {
+  font-weight: 600;
+  color: #e0559c;
+}
+
+.difficulty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 180px;
+  font-size: 14px;
+  color: #555;
+  font-weight: 600;
+}
+
+.difficulty label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+#difficulty-value {
+  color: #6b3fa0;
+  font-weight: 800;
+  min-width: 1.2em;
+  text-align: center;
+}
+
+.difficulty input[type="range"] {
+  width: 180px;
+}
+
+.difficulty-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 180px;
+  font-size: 11px;
+  color: #999;
+}
+
+.board {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--card-w));
+  grid-template-rows: repeat(var(--rows), var(--card-h));
+  gap: var(--gap);
+  justify-content: center;
+  align-content: center;
+  padding: 12px;
+  min-height: 0;
+}
+
+.card {
+  width: var(--card-w);
+  height: var(--card-h);
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card.disabled {
+  cursor: default;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.card-front {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:not(.disabled):hover .card-front {
+  transform: scale(1.03);
+  box-shadow: 0 5px 14px rgba(0,0,0,0.2);
+}
+
+.card-front .q {
+  font-size: calc(var(--card-h) * 0.4);
+  font-weight: 800;
+  color: rgba(255,255,255,0.55);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.card-back {
+  background: #111;
+  transform: rotateY(180deg);
+}
+
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card.winner .card-back {
+  background: #1a0f2e;
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .title {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .difficulty {
+    align-items: center;
+    width: 100%;
+  }
+
+  .difficulty input[type="range"],
+  .difficulty-labels {
+    width: 100%;
+    max-width: 260px;
+  }
+}
